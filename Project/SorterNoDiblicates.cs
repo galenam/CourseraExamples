@@ -13,14 +13,13 @@ namespace CourseraCourseComputerScienceAlgorithmsTheoryAndMachines.SortedNonDubl
             {
                 return source;
             }
-            var dictionary = new Dictionary<string, bool>();
-            SortInner(ArrayToSort, 0, ArrayToSort.Count - 1, dictionary, true);
+            SortInner(ArrayToSort, 0, ArrayToSort.Count - 1, true);
             return string.Join(" ", ArrayToSort);
         }
 
-        private static void SortInner(IList<string> ArrayToSort, int indexBegin, int indexEnd, Dictionary<string, bool> dictionary,
-        bool isFirst)
+        private static void SortInner(IList<string> ArrayToSort, int indexBegin, int indexEnd, bool isFirst)
         {
+            var dictionary = new Dictionary<string, bool>();
             var pivot = ArrayToSort[indexEnd];
             var i = indexBegin;
             var countOfWays = indexBegin;
@@ -36,14 +35,11 @@ namespace CourseraCourseComputerScienceAlgorithmsTheoryAndMachines.SortedNonDubl
                     int indexInsert = indexEnd + 1;
 
                     var needCorrectIndexes = true;
-                    if (!dictionary.ContainsKey(ArrayToSort[i]) || !isFirst)
+                    if (!(dictionary.ContainsKey(ArrayToSort[i]) && isFirst))
                     {
                         needCorrectIndexes = false;
                         ArrayToSort.Insert(indexInsert, ArrayToSort[i]);
-                        if (!dictionary.ContainsKey(ArrayToSort[i]))
-                        {
-                            dictionary.Add(ArrayToSort[i], true);
-                        }
+                        UpdateDictionary(dictionary, isFirst, ArrayToSort[i]);
                     }
                     ArrayToSort.RemoveAt(i);
                     indexPivot--;
@@ -60,20 +56,24 @@ namespace CourseraCourseComputerScienceAlgorithmsTheoryAndMachines.SortedNonDubl
                 }
                 else
                 {
-                    if (!dictionary.ContainsKey(ArrayToSort[i]))
-                    {
-                        dictionary.Add(ArrayToSort[i], true);
-                    }
+                    UpdateDictionary(dictionary, isFirst, ArrayToSort[i]);
                     i++;
                 }
             }
             if (indexBegin < indexPivot - 1)
             {
-                SortInner(ArrayToSort, indexBegin, indexPivot - 1, dictionary, false);
+                SortInner(ArrayToSort, indexBegin, indexPivot - 1, false);
             }
             if (indexPivot < indexEnd)
             {
-                SortInner(ArrayToSort, indexPivot + 1, indexEnd, dictionary, false);
+                SortInner(ArrayToSort, indexPivot + 1, indexEnd, false);
+            }
+        }
+        private static void UpdateDictionary(Dictionary<string, bool> dictionary, bool isFirst, string value)
+        {
+            if (!dictionary.ContainsKey(value) && isFirst)
+            {
+                dictionary.Add(value, true);
             }
         }
     }
