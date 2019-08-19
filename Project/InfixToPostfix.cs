@@ -8,13 +8,14 @@ namespace CourseraCourseComputerScienceAlgorithmsTheoryAndMachines.InfixToPostfi
     public static class InfixToPostfix
     {
 
+        static string allOperators = "/ +-*()";
         public static string Tranform(string source)
         {
             var stackOperations = new Stack<char>();
             var postfix = new StringBuilder();
             foreach (char c in source)
             {
-                if ("/+-*()".IndexOf(c) < 0)
+                if (allOperators.IndexOf(c) < 0)
                 {
                     postfix.Append(c);
                 }
