@@ -8,7 +8,7 @@ namespace Project.IsPalindrome
         public static bool Define(string str)
         {
             if (string.IsNullOrEmpty(str)) return false;
-            var regex = new Regex("[^a-zA-Zа-яА-Я]");
+            var regex = new Regex("[^a-zа-я]");
             var source = regex.Replace(str.ToLower(), string.Empty);
             if (string.IsNullOrEmpty(source)) return false;
             for (int i = 0; i < source.Length; i++)
