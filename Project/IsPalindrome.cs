@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 
 namespace Project.IsPalindrome
 {
@@ -7,7 +8,8 @@ namespace Project.IsPalindrome
         public static bool Define(string str)
         {
             if (string.IsNullOrEmpty(str)) return false;
-            var source = str.ToLower().Replace(" ", string.Empty);
+            var regex = new Regex("[^a-zA-Zа-яА-Я]");
+            var source = regex.Replace(str.ToLower(), string.Empty);
             if (string.IsNullOrEmpty(source)) return false;
             for (int i = 0; i < source.Length; i++)
             {

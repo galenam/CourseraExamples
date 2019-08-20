@@ -20,7 +20,7 @@ namespace Tests
             yield return (" ", false);
             yield return ("  ", false);
             yield return ("   ", false);
-            yield return ("Аргентина манит негра", true);
+            yield return ("Аргентина манит негра.", true);
         }
 
         [TestCaseSource(nameof(Source4TestIsPalindrome))]
